@@ -150,10 +150,12 @@ function sliderFunction(event) {
   let newTargetedFrame;
   if (event.code !== "ArrowRight" && event.code !== "ArrowLeft") { return;} // guard clause
     if (event.code === "ArrowRight") {
-      if (targetedFrame === galleryRef.lastElementChild) {              //проверка, является ли текущий элемент галереи последним
-        targetedFrame = galleryRef.firstElementChild;                  //если да то "фокусируемся" на первом элементе галереи (чтобы можно было листать галерею по кругу)
-      }
-      newTargetedFrame = targetedFrame.nextElementSibling;         // назначаем целевой элемент галереи, из которого будет взята ссылка(data-source) на изображение и записана в 'src' изображения модального окна   
+      newTargetedFrame = targetedFrame.nextElementSibling;         // назначаем целевой элемент галереи, из которого будет взята ссылка(data-source) на изображение и записана в 'src' изображения модального окна 
+                  if (targetedFrame === galleryRef.lastElementChild) {   //проверка, является ли текущий элемент галереи последним
+                    newTargetedFrame = galleryRef.firstElementChild; //если да то "фокусируемся" на первом элементе галереи (чтобы можно было листать галерею по кругу)
+                  }
+
+
       lightBoxImageRef.setAttribute(
         "alt",
         newTargetedFrame.querySelector(".gallery__image").getAttribute("alt")
@@ -167,10 +169,10 @@ function sliderFunction(event) {
     }
 
   if (event.code === "ArrowLeft") {                              //те же логика, что и выше, для события  нажатия клавиши "вправо"
-    if (targetedFrame === galleryRef.firstElementChild) {  
-      targetedFrame = galleryRef.lastElementChild;
-    } 
     newTargetedFrame = targetedFrame.previousElementSibling;
+    if (targetedFrame === galleryRef.firstElementChild) {
+      newTargetedFrame = galleryRef.lastElementChild;
+    } 
     lightBoxImageRef.setAttribute(
       "alt",
       newTargetedFrame.querySelector(".gallery__image").getAttribute("alt")
